@@ -1,4 +1,6 @@
-
+library("readxl");library(dplyr);library(tidyverse);library(RJafroc);library(WriteXLS);library(glue)
+library("e1071");library(epiR);library(pROC);library(caret);
+library(geepack) 
 SNSP<-function(truth,pred){
   #Sensitivity, specificity 95% CI
   tb<-confusionMatrix(data=factor(pred),ref=factor(truth),positive="1")$tab[2:1,2:1]
