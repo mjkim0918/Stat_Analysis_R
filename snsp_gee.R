@@ -12,7 +12,7 @@ snsp_gee <- function(Performance, Test, PatientID, GT, data){
   
   #specificity
   data_sp <- data %>% filter(GT == 0)
-  model_sp <- geeglm(Performance ~ Test, id = PatientID, data = data_sn, family = binomial(link = "identity"), corstr = "independence")
+  model_sp <- geeglm(Performance ~ Test, id = PatientID, data = data_sp, family = binomial(link = "identity"), corstr = "independence")
   p_sp <- summary(model_sp)$coefficients[2, "Pr(>|W|)"]
   
   #result
