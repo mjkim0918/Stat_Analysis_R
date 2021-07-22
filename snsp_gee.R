@@ -4,6 +4,7 @@ library(geepack)
 
 snsp_gee <- function(Performance, Test, PatientID, GT, data){
   #Performance : reader's test result, test : without AI(0), with AI(1)
+  
   #sensitivity
   data_sn <- data %>% filter(GT == 1)
   model_sn <- geeglm(Performance ~ Test, id = PatientID, data = data_sn, family = binomial(link = "identity"), corstr = "independence")
