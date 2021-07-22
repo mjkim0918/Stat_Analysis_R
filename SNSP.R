@@ -8,10 +8,13 @@ SNSP<-function(truth,pred){
   sensitivity<-epi.tests(tb)$elements$sensitivity
   specificity<-epi.tests(tb)$elements$specificity
   
-  result<-list(sensitivity=sensitivity,specificity=specificity)
-  se_sp <- round(unlist(result),3)
-  se_sp <- c(se_sp[1], paste0("(",se_sp[2],", ",se_sp[3],")"),
-             se_sp[4], paste0("(",se_sp[5],", ",se_sp[6],")"))
-  names(se_sp) <- c("Sensitivity", "95% CI_sen", "Specificity", "95% CI_spec") 
-  return(se_sp)
+  snsp_result<-list(sensitivity=sensitivity,specificity=specificity)
+  se_sp <- round(unlist(snsp_result),3)
+  se <- se_sp[1]
+  se_ci <- paste0(se_sp[1], "(", se_sp[2], ", ", se_sp[3], ")")
+  sp <- se_sp[4]
+  sp_ci <- paste0(se_sp[4], "(", se_sp[5], ", ", se_sp[6], ")")
+
+  result <- list(sen_ci = se_ci, sp_ci = sp_ci, sen = se, sp = sp)
+  return(result)
 }
