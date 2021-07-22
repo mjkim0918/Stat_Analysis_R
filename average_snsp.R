@@ -9,8 +9,10 @@ confidence_interval_calc <- function(alpha, avg, number_of_data) {
 }
 
 average_snsp <- function(alpha, snsp, number_of_data){
+  #snsp : vector of Sensitivity or Specificity
   avg <- mean(snsp)
   CI <- confidence_interval_calc(alpha, avg, number_of_data)
-  result <- list(average = round(avg,3), CI = CI)
+  ave_ci <- paste0(round(avg,3), CI)
+  result <- list(ave_ci = ave_ci, average = round(avg,3), CI = CI)
   return(result)
 }
