@@ -2,7 +2,9 @@ library(pROC);library(tidyverse)
 
 
 roc_single_point <- function(obj, ci, point_data) {
-
+  # obj : roc object with pROC::roc
+  # ci : with ci -> ci = TRUE, without ci -> ci = FALSE
+  # point_data : data frame with column names "Reader", "sensitivity", "specificity"
   ciobj <- ci.se(obj, specificities = seq(0, 1, l = 25))
   dat.ci <- data.frame(x = as.numeric(rownames(ciobj)),
                        lower = ciobj[, 1],
