@@ -5,7 +5,7 @@ library(pROC);library(tidyverse)
 
 roc_multi <- function(roc.list, ci){ 
   # roc.list : roc object list, roc with pROC::roc
-  # ci : 
+  # ci : with ci -> ci = TRUE, without ci -> ci = FALSE
   ci.list <- lapply(roc.list, ci.se, specificities = seq(0, 1, l = 25))
   
   dat.ci.list <- lapply(ci.list, function(ciobj) 
