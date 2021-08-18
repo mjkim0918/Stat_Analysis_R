@@ -7,7 +7,7 @@ roc_multi_point <- function(roc.list, ci, point_data){
   # roc.list : roc object list, roc with pROC::roc
   # ci : with ci -> ci = TRUE, without ci -> ci = FALSE
   # point_data : data frame with column names "Test", "Reader", "sensitivity", "specificity"
-  ci.list <- lapply(roc_list, ci.se, specificities = seq(0, 1, l = 25))
+  ci.list <- lapply(roc.list, ci.se, specificities = seq(0, 1, l = 25))
   
   dat.ci.list <- lapply(ci.list, function(ciobj) 
     data.frame(x = as.numeric(rownames(ciobj)),
