@@ -1,5 +1,7 @@
 library(pROC);library(tidyverse)
 
+# single ROC curve
+
 roc_single <- function(obj, ci) {
   # obj : roc object with pROC::roc
   # ci : with ci -> ci = TRUE, without ci -> ci = FALSE
