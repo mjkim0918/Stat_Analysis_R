@@ -2,7 +2,7 @@ library("readxl");library(dplyr);library(tidyverse);library(RJafroc);library(Wri
 library("e1071");library(epiR);library(pROC);library(caret);
 
 roc_single <- function(truth, score){
-  roc <- roc(truth, score,plot=T)
+  roc <- pROC::roc(truth, score,plot=T)
   
   auc_ci <- round(ci.auc(roc),3)
   auc_ci_res <- paste0(auc_ci[2],"(",auc_ci[1],", ",auc_ci[3],")")
