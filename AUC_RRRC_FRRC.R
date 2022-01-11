@@ -77,7 +77,7 @@ auc_frrc_result<-function(data){
     mutate(p_value = if_else(PrGTt < 0.001, "<0.001", as.character(round(PrGTt, 3)))) %>% 
     dplyr::select(Reader, Trt1, Trt2, Estimate, CILower, CIUpper, p_value) %>% 
     rename(Diff = Estimate)
-  
+  total_result[,2:6] <- sapply(total_result[,2:6], function(x) {round(as.numeric(x), 3)})
   return(total_result)
 }
 
