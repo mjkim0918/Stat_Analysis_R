@@ -58,3 +58,22 @@ roc_single(roc1, ci = T)
 
 
 
+###################################
+### sample for saving plot with for loop(data from Edinburgh study)
+###################################
+
+
+find_inx <- sort(unique(df$finding))[-c(9,10)] #Pneumothorax case 없어 제외
+
+
+
+for(i in find_inx){
+  df_roc <- df %>% filter(finding ==i)
+  roc <- roc(df_roc$Truth, df_roc$Score, ci = T, plot = F)
+  name <- paste0(i, ".jpg")
+  
+  roc_plot <- roc_single(roc, ci = T, title = str_replace(i,"_"," "))
+  ggsave(roc_plot, file=name)
+}
+
+
