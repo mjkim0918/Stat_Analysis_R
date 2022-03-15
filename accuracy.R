@@ -1,7 +1,6 @@
 
-library("readxl");library(dplyr);library(tidyverse);library(RJafroc);library(WriteXLS);library(glue)
-library("e1071");library(epiR);library(pROC);library(caret);
-library(geepack)
+library(dplyr);library(tidyverse);
+library(epiR);library(pROC);library(caret);
 
 accuracy<-function(truth,pred){
   #Accuracy 95% CI
