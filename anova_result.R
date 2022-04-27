@@ -23,4 +23,4 @@ anova_result <- function(y, group, data){
 }
 
 ###example
-anova_result(df_ABC$cancer_score, df_ABC$group, df_ABC) ##y, group format should be -> data$y, data$group
+anova_result(y, group, df_ABC) ##df_ABC should have same name column 'y', 'goup'
