@@ -1,4 +1,6 @@
 library(dplyr);library(tidyverse);
+#ANOVA test or two sample t-test
+#when there are only two groups, ANOVA test result(p-value) and two sample t-test result are exactly same!
 anova_result <- function(y, group, data){
   anova <- aov(y ~ group, data = data)
   sum_anova <- summary(anova)
