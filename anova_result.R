@@ -13,7 +13,7 @@ anova_result <- function(y, group, data){
     summarise(n = n(), 
               mean_sd = paste(round(mean(y, na.rm = T), 2), "±",round(sd(y, na.rm = T), 2)),
               median = round(median(y),4), min_max = paste0(round(min(y),4), ", ", round(max(y),4)),
-              IQR = paste0(round(quantile(y, 0.75),4), ", ", round(quantile(y, 0.25),4)))
+              IQR = paste0(round(quantile(y, 0.25),4), ", ", round(quantile(y, 0.75),4)))
   
   sum_tb_t <- t(sum_tb)
   colnames(sum_tb_t) <- names(table(data$group))
