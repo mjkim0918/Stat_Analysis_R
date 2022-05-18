@@ -4,7 +4,7 @@ library(dplyr);library(tidyverse);
 anova_result <- function(y, group, data){
   anova <- aov(y ~ group, data = data)
   sum_anova <- summary(anova)
-  p_value <- c(if_else(unlist(sum_anova)['Pr(>F)1']<0.0001,"< 0.0001", as.character(round(unlist(sum_anova)['Pr(>F)1']),4)),"-","-","-","-")
+  p_value <- c(if_else(unlist(sum_anova)['Pr(>F)1']<0.0001,"< 0.0001", as.character(round(unlist(sum_anova)['Pr(>F)1'],4))),"-","-","-","-")
   names(p_value) <- "p_value"
   
   
