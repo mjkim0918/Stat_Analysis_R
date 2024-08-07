@@ -1,14 +1,15 @@
-library(tidyverse);library(pROC);library(epiR);
+library(tidyverse);library(pROC);library(epiR);library(caret)
 
 auc_thr_sen <- function(y, pred, sen){
-  roc <- pROC::roc(y,pred,plot=T)
+  roc <- pROC::roc(y,pred,plot=T,drop=F)
   
   auc_ci <- round(ci.auc(roc),3)
   auc_res <- paste0(auc_ci[2],"(",auc_ci[1],", ",auc_ci[3],")")
   
-  threshold_sen <- coords(roc) %>% 
+  threshold_sen <- coords(roc,drop=F) %>% 
     mutate(diff = sensitivity - sen) %>% 
-    slice(which.min(abs(diff))) %>% 
+    mutate(diff = abs(sensitivity - sen)) %>% 
+    filter(diff == min(diff)) %>% 
     slice(which.max(specificity)) %>% 
     dplyr::select(-diff)
   
@@ -18,12 +19,12 @@ auc_thr_sen <- function(y, pred, sen){
   Total_n_cancer <- colSums(table$table)[2]
   
   tb<-table$tab[2:1,2:1]
-  sensitivity_sen <- round(epi.tests(tb)$elements$sensitivity,3)
-  specificity_sen <- round(epi.tests(tb)$elements$specificity,3)
+  sensitivity_sen <- round(epi.tests(tb)$detail[3,-1],3)
+  specificity_sen <- round(epi.tests(tb)$detail[4,-1],3)
   threshold_sen <- threshold_sen %>%
     mutate(sensitivity = paste0(sensitivity_sen[1],"(",sensitivity_sen[2],", ",sensitivity_sen[3],")"),
            specificity = paste0(specificity_sen[1],"(",specificity_sen[2],", ",specificity_sen[3],")"),
-           threshold = round(threshold, 3))
+           threshold = round(threshold, 5))
   
   
   result <- list(auc = auc_res, threshold_sen = threshold_sen, 
@@ -40,8 +41,8 @@ auc_thr_spec <- function(y, pred, spec){
   auc_res <- paste0(auc_ci[2],"(",auc_ci[1],", ",auc_ci[3],")")
   
   threshold_spec <- coords(roc) %>% 
-    mutate(diff = specificity - spec) %>% 
-    slice(which.min(abs(diff))) %>% 
+    mutate(diff = abs(specificity - spec)) %>% 
+    filter(diff == min(diff)) %>% 
     slice(which.max(sensitivity)) %>% 
     dplyr::select(-diff)
   
@@ -51,12 +52,12 @@ auc_thr_spec <- function(y, pred, spec){
   Total_n_cancer <- colSums(table$table)[2]
   
   tb<-table$tab[2:1,2:1]
-  sensitivity_spec <- round(epi.tests(tb)$elements$sensitivity,3)
-  specificity_spec <- round(epi.tests(tb)$elements$specificity,3)
+  sensitivity_spec <- round(epi.tests(tb)$detail[3,-1],3)
+  specificity_spec <- round(epi.tests(tb)$detail[4,-1],3)
   threshold_spec <- threshold_spec %>%
     mutate(sensitivity = paste0(sensitivity_spec[1],"(",sensitivity_spec[2],", ",sensitivity_spec[3],")"),
            specificity = paste0(specificity_spec[1],"(",specificity_spec[2],", ",specificity_spec[3],")"),
-           threshold = round(threshold, 3))
+           threshold = round(threshold, 5))
   
   
   result <- list(auc = auc_res, threshold_spec = threshold_spec, 
