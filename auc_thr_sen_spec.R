@@ -24,7 +24,7 @@ auc_thr_sen <- function(y, pred, sen){
   threshold_sen <- threshold_sen %>%
     mutate(sensitivity = paste0(sensitivity_sen[1],"(",sensitivity_sen[2],", ",sensitivity_sen[3],")"),
            specificity = paste0(specificity_sen[1],"(",specificity_sen[2],", ",specificity_sen[3],")"),
-           threshold = round(threshold, 5))
+           threshold = round(threshold, 3))
   
   
   result <- list(auc = auc_res, threshold_sen = threshold_sen, 
@@ -57,7 +57,7 @@ auc_thr_spec <- function(y, pred, spec){
   threshold_spec <- threshold_spec %>%
     mutate(sensitivity = paste0(sensitivity_spec[1],"(",sensitivity_spec[2],", ",sensitivity_spec[3],")"),
            specificity = paste0(specificity_spec[1],"(",specificity_spec[2],", ",specificity_spec[3],")"),
-           threshold = round(threshold, 5))
+           threshold = round(threshold, 3))
   
   
   result <- list(auc = auc_res, threshold_spec = threshold_spec, 
